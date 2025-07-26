@@ -1,0 +1,52 @@
+[
+  {
+    "amount": 1299.0,
+    "merchant": "Bank Debit",
+    "date": "2025-07-15"
+  },
+  {
+    "amount": 499.0,
+    "merchant": "Netflix",
+    "date": "2025-07-14"
+  },
+  {
+    "amount": 799.0,
+    "merchant": "EMI Payment",
+    "date": "2025-07-13"
+  },
+  {
+    "amount": 238.0,
+    "merchant": "Bank Debit",
+    "date": "2025-07-15"
+  },
+  {
+    "amount": 500.0,
+    "merchant": "Netflix",
+    "date": "2025-07-14"
+  },
+  {
+    "amount": 799.0,
+    "merchant": "EMI Payment",
+    "date": "2025-07-13"
+  },
+  {
+    "amount": 3773.0,
+    "merchant": "Bank Debit",
+    "date": "2025-07-15"
+  },
+  {
+    "amount": 199.0,
+    "merchant": "Prime",
+    "date": "2025-07-14"
+  },
+  {
+    "amount": 1299.0,
+    "merchant": "Bank Debit",
+    "date": "2025-07-25"
+  },
+  {
+    "amount": 599.0,
+    "merchant": "Dmart",
+    "date": "2025-07-19"
+  }
+]
