@@ -16,7 +16,7 @@ df = pd.read_sql_query("SELECT * FROM transactions", conn)
 
 # Ask user for monthly budget
 st.sidebar.header("💰 Set Your Monthly Budget")
-monthly_budget = st.sidebar.number_input("Enter your total monthly budget (Rs.):", min_value=1000, step=500)
+monthly_budget = st.sidebar.number_input("Enter your total monthly budget (Rs.):", min_value=1000, step=500, value=25000)
 
 # To generate reminders
 PARSED_JSON_PATH = os.path.join(os.path.dirname(__file__), '../sms_email_parser/parsed_output.json')
@@ -85,21 +85,19 @@ filtered_df = df[
 
 # Show recent transactions
 st.write("### 🧾 Recent Transactions")
-st.dataframe(filtered_df.sort_values(by="date", ascending=False).head(10))
+st.dataframe(filtered_df.sort_values(by="date", ascending=False).head(5))
 
 # Show total spend
 total = filtered_df["amount"].sum()
 st.metric("Total Spent", f"Rs. {total:,.2f}")
 
 # Actual vs Budget Comparison
-st.subheader("📊 Budget vs Actual (This Month)")
-
 import datetime
 
 ## Current month filter
 current_month = pd.to_datetime("today").to_period("M")
 monthly_df = filtered_df[filtered_df["date"].dt.to_period("M") == current_month]
-
+st.subheader(f"📊 Budget vs Actual {current_month}")
 ## Group actuals
 actuals = monthly_df.groupby("category")["amount"].sum()
 
@@ -178,3 +176,23 @@ filtered_df['date'] = pd.to_datetime(df['date'])
 monthly = df.groupby(filtered_df['date'].dt.to_period("M"))["amount"].sum()
 monthly.index = monthly.index.astype(str)
 st.line_chart(monthly)
+
+
+# Download Monthly Report --- Report Generation
+# Add 'type' column for reports
+filtered_df['type'] = filtered_df['category'].apply(lambda x: 'income' if str(x).lower() == 'salary' else 'expense')
+
+import os
+from reports.report_generator import generate_excel_report
+
+# At the end of dashboard layout
+from datetime import datetime
+today_str = datetime.now().strftime("%Y_%m_%d")
+if st.button("📤 Download Monthly Report"):
+    generate_excel_report(
+        filtered_df,
+        budget_allocation=budget_split,  # pass your split dict
+        monthly_budget=monthly_budget,   # pass the user's budget
+        save_path=os.path.join(os.getcwd(), f"expense_report_{today_str}.xlsx")
+    )
+    st.success("Report generated as monthly_report.xlsx!")

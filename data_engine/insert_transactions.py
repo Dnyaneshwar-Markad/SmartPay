@@ -11,7 +11,7 @@ def categorize(merchant):
         return 'Food'
     elif 'amazon' in merchant or 'flipkart' in merchant:
         return 'Shopping'
-    elif 'Dmart' in merchant or 'DIY' in merchant or 'Super Maket' in merchant:
+    elif 'dmart' in merchant or 'DIY' in merchant or 'Super Maket' in merchant:
         return 'Groceries'
     elif 'credit' in merchant or 'loan' in merchant or 'emi' in merchant:
         return 'Bills'
